@@ -278,6 +278,7 @@ function readStage(stageNo) {
             roomElements[i].appendChild(character);
         });
     });
+    document.querySelector("#stageNo").innerText = `Stage : ${stageNo}`;
 }
 
 
