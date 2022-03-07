@@ -123,7 +123,7 @@ function createPlayerTowerElement() {
     playerTowerElement.id = "playerTower";
     document.querySelector("#game").appendChild(playerTowerElement);
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
         let roomElement = createPlayerRoomElement(i);
         roomElement.style.position = "absolute";
         // roomElement.style.top = `${707 - 125 * (i + 1)}px`;
@@ -238,6 +238,16 @@ function createCharacterElement(characterStatus, id) {
 }
 
 /**
+ * 自タワーを初期化
+ */
+function clearPlayerTowerElement() {
+    const roomElements = document.querySelector("#playerTower").querySelectorAll(".room");
+    roomElements.forEach(e => e.style.visibility = "hidden");
+    document.querySelector("#playerRoom_0").style.visibility = "visible";
+    playerTowerHight = 0;
+}
+
+/**
  * 敵タワーを初期化
  */
 function clearEnemyTowerElement() {
@@ -254,6 +264,7 @@ function clearEnemyTowerElement() {
 function readStage(stageNo) {
     const stageTower = stage[stageNo];
     const roomElements = document.querySelector("#enemyTower").querySelectorAll(".room");
+    clearPlayerTowerElement();
     clearEnemyTowerElement();
     stageTower.roomes.forEach((e, i) => {
         roomElements[i].style.visibility = "visible";
@@ -379,8 +390,12 @@ function battle(e) {
         }
         // console.log(isLiveAnyEnemy());
         if (!isLiveAnyEnemy()) {
-            window.alert("The enemy tower is eliminated.\nGoto next Stage...");
-            //
+            if (stage[++currentStage] !== undefined) {
+                window.alert("The enemy tower is eliminated.\nGoto next Stage...");
+                readStage(currentStage);
+            } else {
+                window.alert("All Clear!!");
+            }
         }
     }
 }
