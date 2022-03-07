@@ -2,4 +2,25 @@
     background-image: url("media/game_background.jpg");
     height: 700px;
     width: 500px;
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#playerTower{
+    height: 500px;
+    width: 200px;
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+}
+
+#enemyTower{
+    /* background-image: url("media/enemyTowerBackground.png"); */
+    height: 500px;
+    width: 200px;
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
 }

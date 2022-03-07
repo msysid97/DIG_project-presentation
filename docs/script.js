@@ -117,6 +117,7 @@ const stage = [
  */
 function createPlayerTowerElement() {
     const playerTowerElement = document.createElement("div");
+    // const playerTowerElement = document.querySelector("#playerTower");
     // console.log(playerTowerElement);
     playerTowerElement.className = "tower";
     playerTowerElement.id = "playerTower";
@@ -125,10 +126,11 @@ function createPlayerTowerElement() {
     for (let i = 0; i < 4; i++) {
         let roomElement = createPlayerRoomElement(i);
         roomElement.style.position = "absolute";
-        roomElement.style.top = `${707 - 125 * (i + 1)}px`;
-        roomElement.style.left = "10px";
+        // roomElement.style.top = `${707 - 125 * (i + 1)}px`;
+        roomElement.style.bottom = `${125 * i}px`;
+        roomElement.style.left = "0px";
         roomElement.style.visibility = "hidden";
-        roomElement.innerHTML = "<img src=\"media/room.png\">";
+        roomElement.innerHTML = "<img src=\"media/room_player.png\">";
         playerTowerElement.appendChild(roomElement);
     }
 
@@ -163,21 +165,15 @@ function createEnemyTowerElement() {
     const enemyTowerElement = document.createElement("div");
     enemyTowerElement.className = "tower";
     enemyTowerElement.id = "enemyTower";
-    enemyTowerElement.style.backgroundImage = "url(\"media/enemyTowerBackground.png\")";
-    enemyTowerElement.style.height = "500px";
-    enemyTowerElement.style.width = "200px";
-    enemyTowerElement.style.position = "absolute";
-    enemyTowerElement.style.bottom = "0px";
-    enemyTowerElement.style.right = "0px";
     document.querySelector("#game").appendChild(enemyTowerElement);
 
     for (let i = 0; i < 4; i++) {
         let roomElement = createEnemyRoomElement(i);
         roomElement.style.position = "absolute";
-        roomElement.style.top = `${707 - 125 * (i + 1)}px`;
-        roomElement.style.right = "0px";
+        roomElement.style.bottom = `${125 * i}px`;
+        roomElement.style.left = "0px";
         roomElement.style.visibility = "visible";
-        roomElement.innerHTML = "<img src=\"media/room.png\">";
+        roomElement.innerHTML = "<img src=\"media/room_enemy.png\">";
         enemyTowerElement.appendChild(roomElement);
     }
 }
