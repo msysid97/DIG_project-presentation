@@ -1,14 +1,27 @@
-#game{
-    background-image: url("media/game_background.jpg");
-    height: 700px;
-    width: 500px;
+#frame {
+    background-image: url("media/frame.png");
+    height: 1330px;
+    width: 923px;
     display: block;
     position: relative;
     margin-left: auto;
     margin-right: auto;
 }
 
-#playerTower{
+#game {
+    background-image: url("media/game_background.jpg");
+    height: 700px;
+    width: 500px;
+    position: absolute;
+    top: 125px;
+    left: 290px;
+    /* display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto; */
+}
+
+#playerTower {
     height: 500px;
     width: 200px;
     position: absolute;
@@ -16,11 +29,17 @@
     left: 10px;
 }
 
-#enemyTower{
+#enemyTower {
     /* background-image: url("media/enemyTowerBackground.png"); */
     height: 500px;
     width: 200px;
     position: absolute;
     bottom: 0px;
     right: 10px;
+}
+
+h2 {
+    text-align: center;
+    border-top: dashed 1px skyblue;
+    border-bottom: dashed 1px skyblue;
 }
