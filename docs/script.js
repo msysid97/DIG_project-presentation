@@ -94,13 +94,13 @@ const stage = [
         3,
         [
             new Room([
-                new Character("enemy_1", 5)
+                new Character("enemy_1", 150)
             ]),
             new Room([
-                new Character("enemy_1", 5)
+                new Character("enemy_1", 10)
             ]),
             new Room([
-                new Character("enemy_1", 5)
+                new Character("enemy_1", 20)
             ]),
             new Room([
                 new Character("enemy_1", 5),
@@ -297,6 +297,22 @@ function isLiveAnyEnemy() {
     return stage[currentStage].roomes.reduce((r, e) => r || e.live, false);
 }
 
+
+function initializeScreen() {
+    document.querySelector("#homebutton").addEventListener("click", dark);
+}
+
+function dark() {
+    const screenElement = document.querySelector("#darkScreen");
+    if (screenElement.style.visibility === "hidden") {
+        screenElement.style.visibility = "visible";
+        console.log("off");
+    } else {
+        screenElement.style.visibility = "hidden";
+        console.log("on");
+    }
+}
+
 /**
  * ゲームスタート時初期化
  */
@@ -373,20 +389,27 @@ function battle(e) {
         // console.log(targetRoom);
         // console.log(targetRoomElement);
         // console.log(targetCharacterElements);
-        targetRoom.characters.forEach((e, i) => {
+        for (let i = 0; i < targetRoom.characters.length; i++) {
+            // targetRoom.characters.forEach((e, i) => {
+            let e = targetRoom.characters[i];
             if (player.level >= e.level && flagRoomWin) {
                 targetCharacterElements[i].querySelector(".downMark").style.visibility = undefined;
                 window.alert(`versus Enemy${i + 1}....... You win!!`);
                 player.level += e.level;
             } else {
+                window.alert(`versus Enemy${i + 1}....... You Lose.....`);
                 flagRoomWin = false;
+                break;
             }
-        });
+            // });
+        }
         if (flagRoomWin) {
             targetRoom.characters.forEach((e, i) => targetCharacterElements[i].style.visibility = "hidden");
             window.alert(`You Victory!!! (your level ${prevPlayerLevel} -> ${player.level})`);
             targetRoom.live = false;
             document.querySelector(`#playerRoom_${++playerTowerHight}`).style.visibility = "visible";
+        } else {
+            location.reload();
         }
         // console.log(isLiveAnyEnemy());
         if (!isLiveAnyEnemy()) {
@@ -401,5 +424,6 @@ function battle(e) {
 }
 
 {
+    initializeScreen();
     initializeGame();
 }
