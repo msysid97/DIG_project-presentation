@@ -282,12 +282,17 @@ function createDownMark() {
 }
 
 
+function isLiveAnyEnemy() {
+    return stage[currentStage].roomes.reduce((r, e) => r || e.live, false);
+}
+
 /**
  * ゲームスタート時初期化
  */
 function initializeGame() {
     currentStage = 1;
     currentRoom = -1;   // -1: playerTower
+    playerTowerHight = 0;
     // 自タワー表示
     createPlayerTowerElement();
 
@@ -320,6 +325,11 @@ let currentStage;
  * @type {number}
  */
 let currentRoom;
+/**
+ * 自タワーの高さ
+ * @type {number}
+ */
+let playerTowerHight;
 
 
 
@@ -348,10 +358,10 @@ function battle(e) {
     if (targetRoom.live) {
         let flagRoomWin = true;
         const prevPlayerLevel = player.level;
-        console.log(targetRoomElement.id.slice(10));
-        console.log(targetRoom);
-        console.log(targetRoomElement);
-        console.log(targetCharacterElements);
+        // console.log(targetRoomElement.id.slice(10));
+        // console.log(targetRoom);
+        // console.log(targetRoomElement);
+        // console.log(targetCharacterElements);
         targetRoom.characters.forEach((e, i) => {
             if (player.level >= e.level && flagRoomWin) {
                 targetCharacterElements[i].querySelector(".downMark").style.visibility = undefined;
@@ -365,6 +375,12 @@ function battle(e) {
             targetRoom.characters.forEach((e, i) => targetCharacterElements[i].style.visibility = "hidden");
             window.alert(`You Victory!!! (your level ${prevPlayerLevel} -> ${player.level})`);
             targetRoom.live = false;
+            document.querySelector(`#playerRoom_${++playerTowerHight}`).style.visibility = "visible";
+        }
+        // console.log(isLiveAnyEnemy());
+        if (!isLiveAnyEnemy()) {
+            window.alert("The enemy tower is eliminated.\nGoto next Stage...");
+            //
         }
     }
 }
